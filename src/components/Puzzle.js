@@ -1,7 +1,6 @@
 import React from 'react';
 import '../css/App.css';
 import vault from '../images/keypad/passcode-lock.png';
-import blank from '../images/keypad/blank.png';
 import one from '../images/keypad/1.png';
 import two from '../images/keypad/2.png';
 import three from '../images/keypad/3.png';
@@ -34,7 +33,7 @@ class Puzzle extends React.Component {
   }
 
   enter() {
-    if (this.state.value == this.props.passcode) {
+    if (this.state.value === this.props.passcode) {
       this.setState({open: true})
     } else {
       this.setState({value: ''})
@@ -66,6 +65,8 @@ class Puzzle extends React.Component {
         return eight;
       case '9':
         return nine;
+      default:
+        return null;
     }
   }
 
@@ -168,21 +169,13 @@ class Puzzle extends React.Component {
       top: '150px',
       left: '610px'};
 
-    const errorStyle = {
-      position: 'absolute',
-      backgroundColor: 'red',
-      height: '150px',
-      width: '380px',
-      top: '125px',
-      left: '210px'};
-
     return(
       <div>
         <img src={vault} align="center" className="vault center" alt="vault" />
-        { this.state.value.length < 1 ? null :  <img style={firstDigitStyle} src={this.setDisplayRoute(0)} className="digit"/>}
-        { this.state.value.length < 2 ? null :  <img style={secondDigitStyle} src={this.setDisplayRoute(1)} className="digit"/>}
-        { this.state.value.length < 3 ? null :  <img style={thirdDigitStyle} src={this.setDisplayRoute(2)} className="digit"/>}
-        { this.state.value.length < 4 ? null :  <img style={forthDigitStyle} src={this.setDisplayRoute(3)} className="digit"/>}
+        { this.state.value.length < 1 ? null :  <img style={firstDigitStyle} src={this.setDisplayRoute(0)} className="digit" alt="digit"/>}
+        { this.state.value.length < 2 ? null :  <img style={secondDigitStyle} src={this.setDisplayRoute(1)} className="digit" alt="digit"/>}
+        { this.state.value.length < 3 ? null :  <img style={thirdDigitStyle} src={this.setDisplayRoute(2)} className="digit" alt="digit"/>}
+        { this.state.value.length < 4 ? null :  <img style={forthDigitStyle} src={this.setDisplayRoute(3)} className="digit" alt="digit"/>}
 
         <div style={numOneStyle} id='numOne' onClick={() => { this.addNum('1')} }/>
         <div style={numTwoStyle} id='numTwo' onClick={() => { this.addNum('2')} }/>
@@ -206,8 +199,8 @@ class Puzzle extends React.Component {
     return (
       <div style={keypadStyle}>
         { (!this.state.open && !this.state.empty) ? this.displaySafe() : null }
-        { this.state.open ? <img src={key} onClick={() => { this.take() } }/> : null }
-        { this.state.empty ? <img src={empty} /> : null }
+        { this.state.open ? <img src={key} onClick={() => { this.take() } } alt="key"/> : null }
+        { this.state.empty ? <img src={empty} alt="empty" /> : null }
       </div>
     );
   }
