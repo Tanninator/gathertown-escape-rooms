@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import Puzzle from './Puzzle';
+import Keypad from './Keypad';
+import Bookshelf from './Bookshelf';
 
 class App extends Component {
   render() {
@@ -8,9 +9,13 @@ class App extends Component {
         <BrowserRouter>
           <Switch>
             <Route
-              path="**/puzzle"
+              path="**/keypad"
               render={(props) => (
-              <Puzzle {...props} passcode='2114' /> )}/>
+              <Keypad {...props} passcode='2114' /> )}/>
+            <Route
+              path="**/bookshelf"
+              render={(props) => (
+              <Bookshelf {...props} /> )}/>
           </Switch>
         </BrowserRouter>)
   }

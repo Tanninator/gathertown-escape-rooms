@@ -13,10 +13,16 @@ import nine from '../images/keypad/9.png';
 import key from '../images/key/key.jpeg'
 import empty from '../images/key/you-took-the-key.jpg'
 
-class Puzzle extends React.Component {
+class Keypad extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {value: '', error: false, open: false, empty: false}
+    this.state = this.getInitialState()
+  }
+
+  getInitialState() {
+    let openFlag = localStorage.getItem( 'openFlag' ) || false;
+    let emptyFlag = localStorage.getItem( 'emptyFlag' ) || false;
+    return { value: '', open: openFlag === 'true', empty: emptyFlag === 'true' };
   }
 
   addNum(number) {
@@ -34,6 +40,7 @@ class Puzzle extends React.Component {
 
   enter() {
     if (this.state.value === this.props.passcode) {
+      localStorage.setItem('openFlag', true)
       this.setState({open: true})
     } else {
       this.setState({value: ''})
@@ -41,6 +48,8 @@ class Puzzle extends React.Component {
   }
 
   take() {
+    localStorage.setItem('openFlag', false)
+    localStorage.setItem('emptyFlag', true)
     this.setState({open: false})
     this.setState({empty: true})
   }
@@ -206,4 +215,4 @@ class Puzzle extends React.Component {
   }
 }
 
-export default Puzzle;
+export default Keypad;
