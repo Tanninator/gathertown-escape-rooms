@@ -9,8 +9,8 @@ class App extends Component {
           <Switch>
             <Route
               path="**/puzzle"
-              component={Puzzle}
-            />
+              render={(props) => (
+              <Puzzle {...props} passcode='2114' /> )}/>
           </Switch>
         </BrowserRouter>)
   }
