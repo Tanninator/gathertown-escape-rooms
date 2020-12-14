@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Keypad from './Keypad';
 import Bookshelf from './Bookshelf';
+import Dashboard from './Dashboard';
 
 class App extends Component {
   render() {
@@ -16,6 +17,10 @@ class App extends Component {
               path="**/bookshelf"
               render={(props) => (
               <Bookshelf {...props} /> )}/>
+            <Route
+              path="**/dashboard"
+              render={(props) => (
+              <Dashboard {...props} /> )}/>
           </Switch>
         </BrowserRouter>)
   }
