@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Keypad from './Keypad';
 import Bookshelf from './Bookshelf';
+import Room from './Room';
 import Dashboard from './Dashboard';
 
 class App extends Component {
@@ -17,6 +18,10 @@ class App extends Component {
               path="**/bookshelf"
               render={(props) => (
               <Bookshelf {...props} /> )}/>
+            <Route
+              path="**/room"
+              render={(props) => (
+              <Room {...props} /> )}/>
             <Route
               path="**/dashboard"
               render={(props) => (
