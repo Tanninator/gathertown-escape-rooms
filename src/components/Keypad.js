@@ -12,6 +12,7 @@ import eight from '../images/keypad/8.png';
 import nine from '../images/keypad/9.png';
 import key from '../images/key/key.jpeg'
 import empty from '../images/key/you-took-the-key.jpg'
+import db from '../firebase.js'
 
 class Keypad extends React.Component {
   constructor(props) {
