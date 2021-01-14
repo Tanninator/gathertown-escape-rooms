@@ -3,9 +3,10 @@ import '../css/App.css';
 
 class Dashboard extends React.Component {
   reset() {
-    localStorage.setItem('takenToggle', false)
-    localStorage.setItem('openFlag', false)
-    localStorage.setItem('emptyFlag', false)
+    db.collection("puzzle").doc("bookshelf").set({ takenToggle: false})
+    db.collection("puzzle").doc("room").set({ offToggle: false})
+    db.collection("puzzle").doc("keypad").set({ openFlag: false})
+    db.collection("puzzle").doc("keypad").set({ emptyFlag: false})
     alert('State reset!')
   }
 
