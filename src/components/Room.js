@@ -6,12 +6,11 @@ import lightOff from '../images/room/light-off-in-room.png';
 class Room extends React.Component {
   constructor(props) {
     super(props)
-    this.state = this.getInitialState()
+    this.state = {}
   }
 
-  getInitialState() {
-    let offToggle = localStorage.getItem( 'offToggle' || false );
-    return { off: offToggle === 'true' };
+  componentDidMount() {
+    db.collection("puzzle").doc("keypad").get().then((doc) => { this.setState({offToggle: doc.data().offToggle}) })
   }
 
   setDisplayRoute() {
@@ -19,7 +18,7 @@ class Room extends React.Component {
   }
 
   toggle() {
-    localStorage.setItem('offToggle', !this.state.off)
+    db.collection("puzzle").doc("keypad").set({openFlag: !this.state.off})
     this.setState({off: !this.state.off})
   }
 

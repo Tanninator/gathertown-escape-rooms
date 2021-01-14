@@ -16,13 +16,12 @@ import empty from '../images/key/you-took-the-key.jpg'
 class Keypad extends React.Component {
   constructor(props) {
     super(props)
-    this.state = this.getInitialState()
+    this.state = { value: '' }
   }
 
-  getInitialState() {
-    let openFlag = localStorage.getItem( 'openFlag' ) || false;
-    let emptyFlag = localStorage.getItem( 'emptyFlag' ) || false;
-    return { value: '', open: openFlag === 'true', empty: emptyFlag === 'true' };
+  componentDidMount() {
+    db.collection("puzzle").doc("keypad").get().then((doc) => { this.setState({openFlag: doc.data().openFlag}) })
+    db.collection("puzzle").doc("keypad").get().then((doc) => { this.setState({emptyFlag: doc.data().emptyFlag}) })
   }
 
   addNum(number) {
@@ -40,7 +39,7 @@ class Keypad extends React.Component {
 
   enter() {
     if (this.state.value === this.props.passcode) {
-      localStorage.setItem('openFlag', true)
+      db.collection("puzzle").doc("keypad").set({openFlag: true})
       this.setState({open: true})
     } else {
       this.setState({value: ''})
@@ -48,8 +47,8 @@ class Keypad extends React.Component {
   }
 
   take() {
-    localStorage.setItem('openFlag', false)
-    localStorage.setItem('emptyFlag', true)
+    db.collection("puzzle").doc("keypad").set({openFlag: false})
+    db.collection("puzzle").doc("keypad").set({emptyFlag: true})
     this.setState({open: false})
     this.setState({empty: true})
   }
