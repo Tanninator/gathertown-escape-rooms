@@ -21,6 +21,14 @@ class Keypad extends React.Component {
   }
 
   componentDidMount() {
+    this.getData()
+  }
+
+  componentDidUpdate() {
+    this.getData()
+  }
+
+  getData() {
     db.collection("puzzle").doc("keypad").get().then((doc) => { this.setState({open: doc.data().openFlag}) })
     db.collection("puzzle").doc("keypad").get().then((doc) => { this.setState({empty: doc.data().emptyFlag}) })
   }

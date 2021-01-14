@@ -11,6 +11,14 @@ class Room extends React.Component {
   }
 
   componentDidMount() {
+    this.getData()
+  }
+
+  componentDidUpdate() {
+    this.getData()
+  }
+
+  getData() {
     db.collection("puzzle").doc("room").get().then((doc) => { this.setState({off: doc.data().offToggle}) })
   }
 

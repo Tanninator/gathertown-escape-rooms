@@ -11,6 +11,14 @@ class Bookshelf extends React.Component {
   }
 
   componentDidMount() {
+    this.getData()
+  }
+
+  componentDidUpdate() {
+    this.getData()
+  }
+
+  getData() {
     db.collection("puzzle").doc("bookshelf").get().then((doc) => { this.setState({taken: doc.data().takenToggle}) })
   }
 
