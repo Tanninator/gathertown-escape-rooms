@@ -2,25 +2,25 @@ import React from 'react';
 import '../css/App.css';
 import weirdBookshelf from '../images/bookshelf/bookshelf-weird-book.jpg';
 import emptyBookshelf from '../images/bookshelf/bookshelf.jpg';
+import db from '../firebase.js'
 
 class Bookshelf extends React.Component {
   constructor(props) {
     super(props)
-    this.state = this.getInitialState()
+    this.state = { }
   }
 
-  getInitialState() {
-    let takenToggle = localStorage.getItem( 'takenToggle' || false );
-    return { taken: takenToggle === 'true' };
+  componentDidMount() {
+    db.collection("puzzle").doc("bookshelf").get().then((doc) => { this.setState({taken: doc.data().takenToggle}) })
   }
 
   setDisplayRoute() {
-    return this.state.taken ? emptyBookshelf : weirdBookshelf
+    return this.state.taken ? emptyBookshelf : weirdBookshelf 
   }
 
   toggle() {
-    localStorage.setItem('takenToggle', !this.state.taken)
     this.setState({taken: !this.state.taken})
+    db.collection("puzzle").doc("bookshelf").set({ takenToggle: !this.state.taken })
   }
 
   render() {
