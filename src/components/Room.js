@@ -11,7 +11,7 @@ class Room extends React.Component {
   }
 
   componentDidMount() {
-    db.collection("puzzle").doc("keypad").get().then((doc) => { this.setState({offToggle: doc.data().offToggle}) })
+    db.collection("puzzle").doc("room").get().then((doc) => { this.setState({off: doc.data().offToggle}) })
   }
 
   setDisplayRoute() {
@@ -19,7 +19,7 @@ class Room extends React.Component {
   }
 
   toggle() {
-    db.collection("puzzle").doc("keypad").set({openFlag: !this.state.off})
+    db.collection("puzzle").doc("room").set({offToggle: !this.state.off})
     this.setState({off: !this.state.off})
   }
 

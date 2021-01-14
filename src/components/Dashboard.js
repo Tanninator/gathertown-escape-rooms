@@ -1,4 +1,6 @@
 import React from 'react';
+import db from '../firebase.js'
+
 import '../css/App.css';
 
 class Dashboard extends React.Component {
@@ -7,13 +9,13 @@ class Dashboard extends React.Component {
     db.collection("puzzle").doc("room").set({ offToggle: false})
     db.collection("puzzle").doc("keypad").set({ openFlag: false})
     db.collection("puzzle").doc("keypad").set({ emptyFlag: false})
-    alert('State reset!')
+    alert('Flags reset!')
   }
 
   render() {
     return (
       <div>
-        <button onClick={() => { this.reset()} }> RESET state </button>
+        <button onClick={() => { this.reset()} }> RESET all flags </button>
       </div>
     );
   }

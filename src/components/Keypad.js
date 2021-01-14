@@ -21,8 +21,8 @@ class Keypad extends React.Component {
   }
 
   componentDidMount() {
-    db.collection("puzzle").doc("keypad").get().then((doc) => { this.setState({openFlag: doc.data().openFlag}) })
-    db.collection("puzzle").doc("keypad").get().then((doc) => { this.setState({emptyFlag: doc.data().emptyFlag}) })
+    db.collection("puzzle").doc("keypad").get().then((doc) => { this.setState({open: doc.data().openFlag}) })
+    db.collection("puzzle").doc("keypad").get().then((doc) => { this.setState({empty: doc.data().emptyFlag}) })
   }
 
   addNum(number) {
