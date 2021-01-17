@@ -23,7 +23,7 @@ class Dashboard extends React.Component {
       params: {
         apiKey: config.API_KEY,
         spaceId: config.ROOM_ID,
-        mapId: config.MAP_ID,
+        mapId: config.MANSION_ID,
       }
     })
     .then(result => {
@@ -36,7 +36,7 @@ class Dashboard extends React.Component {
       return axios.post("https://gather.town/api/setMap", {
         apiKey: config.API_KEY,
         spaceId: config.ROOM_ID,
-        mapId: config.MAP_ID,
+        mapId: config.MANSION_ID,
         mapContent: mapData
       })
     })
