@@ -1,5 +1,4 @@
 import React from 'react';
-import '../css/App.css';
 import weirdBookshelf from '../images/bookshelf/bookshelf-weird-book.jpg';
 import emptyBookshelf from '../images/bookshelf/bookshelf.jpg';
 import db from '../firebase.js'
@@ -11,10 +10,6 @@ class Bookshelf extends React.Component {
   }
 
   componentDidMount() {
-    this.getData()
-  }
-
-  componentDidUpdate() {
     this.getData()
   }
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import '../css/App.css';
 import lightOn from '../images/room/light-on-in-room.jpg';
 import lightOff from '../images/room/light-off-in-room.png';
 import db from '../firebase.js'
@@ -11,10 +10,6 @@ class Room extends React.Component {
   }
 
   componentDidMount() {
-    this.getData()
-  }
-
-  componentDidUpdate() {
     this.getData()
   }
 

@@ -1,5 +1,6 @@
 import React from 'react';
-import '../css/App.css';
+import firebase from 'firebase/app';
+import 'firebase/firestore';
 import vault from '../images/keypad/passcode-lock.png';
 import one from '../images/keypad/1.png';
 import two from '../images/keypad/2.png';
@@ -24,13 +25,9 @@ class Keypad extends React.Component {
     this.getData()
   }
 
-  componentDidUpdate() {
-    this.getData()
-  }
-
   getData() {
-    db.collection("puzzle").doc("keypad").get().then((doc) => { this.setState({open: doc.data().openFlag}) })
-    db.collection("puzzle").doc("keypad").get().then((doc) => { this.setState({empty: doc.data().emptyFlag}) })
+    const keypadRef = db.collection("puzzle").doc("keypad")
+    keypadRef.get().then((doc) => { this.setState({open: doc.data().openFlag, empty: doc.data().emptyFlag}) })
   }
 
   addNum(number) {
@@ -48,17 +45,18 @@ class Keypad extends React.Component {
 
   enter() {
     if (this.state.value === this.props.passcode) {
-      db.collection("puzzle").doc("keypad").set({openFlag: true})
       this.setState({open: true})
+      const keypadRef = db.collection("puzzle").doc("keypad")
+      keypadRef.set({openFlag: true}, {merge: true})
     } else {
       this.setState({value: ''})
     }
   }
 
   take() {
-    db.collection("puzzle").doc("keypad").set({openFlag: false})
-    db.collection("puzzle").doc("keypad").set({emptyFlag: true})
-    this.setState({open: false})
+    db.collection("puzzle").doc("keypad").set({emptyFlag: true}, {merge: true})
+    const inventoryRef = db.collection("puzzle").doc("inventory")
+    inventoryRef.update({items: firebase.firestore.FieldValue.arrayUnion("Bathroom Key")})
     this.setState({empty: true})
   }
 
@@ -216,8 +214,8 @@ class Keypad extends React.Component {
     return (
       <div style={keypadStyle}>
         { (!this.state.open && !this.state.empty) ? this.displaySafe() : null }
-        { this.state.open ? <img src={key} onClick={() => { this.take() } } alt="key"/> : null }
-        { this.state.empty ? <img src={empty} alt="empty" /> : null }
+        { this.state.open && !this.state.empty ? <img src={key} onClick={() => { this.take() } } alt="key"/> : null }
+        { this.state.empty && this.state.empty ? <img src={empty} alt="empty" /> : null }
       </div>
     );
   }
