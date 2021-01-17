@@ -36,7 +36,7 @@ class Room extends React.Component {
       position: 'absolute',
       height: '60px',
       width: '40px',
-      top: '375px',
+      top: '415px',
       left: '815px'};
 
     return (

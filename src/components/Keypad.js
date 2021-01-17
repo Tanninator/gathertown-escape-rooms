@@ -90,98 +90,98 @@ class Keypad extends React.Component {
       position: 'absolute',
       height: '80px',
       width: '120px',
-      top: '320px',
+      top: '360px',
       left: '200px'};
 
     const numTwoStyle = {
       position: 'absolute',
       height: '80px',
       width: '120px',
-      top: '320px',
+      top: '360px',
       left: '340px'};
 
     const numThreeStyle = {
       position: 'absolute',
       height: '80px',
       width: '120px',
-      top: '320px',
+      top: '360px',
       left: '480px'};
 
     const numFourStyle = {
       position: 'absolute',
       height: '80px',
       width: '120px',
-      top: '440px',
+      top: '480px',
       left: '200px'};
 
     const numFiveStyle = {
       position: 'absolute',
       height: '80px',
       width: '120px',
-      top: '440px',
+      top: '480px',
       left: '340px'};
   
     const numSixStyle = {
       position: 'absolute',
       height: '80px',
       width: '120px',
-      top: '440px',
+      top: '480px',
       left: '480px'};
 
     const numSevenStyle = {
       position: 'absolute',
       height: '80px',
       width: '120px',
-      top: '550px',
+      top: '590px',
       left: '200px'};
 
     const numEightStyle = {
       position: 'absolute',
       height: '80px',
       width: '120px',
-      top: '550px',
+      top: '590px',
       left: '340px'};
   
     const numNineStyle = {
       position: 'absolute',
       height: '80px',
       width: '120px',
-      top: '550px',
+      top: '590px',
       left: '480px'};
 
     const firstDigitStyle = {
       position: 'absolute',
       height: '120px',
       width: '80px',
-      top: '145px',
+      top: '185px',
       left: '250px'};
 
     const secondDigitStyle = {
       position: 'absolute',
       height: '120px',
       width: '80px',
-      top: '145px',
+      top: '185px',
       left: '330px'};
 
     const thirdDigitStyle = {
       position: 'absolute',
       height: '120px',
       width: '80px',
-      top: '145px',
+      top: '185px',
       left: '410px'};
 
     const forthDigitStyle = {
       position: 'absolute',
       height: '120px',
       width: '80px',
-      top: '145px',
+      top: '185px',
       left: '490px'};
 
     const enterStyle = {
       position: 'absolute',
       height: '80px',
       width: '120px',
-      top: '150px',
+      top: '190px',
       left: '610px'};
 
     return(

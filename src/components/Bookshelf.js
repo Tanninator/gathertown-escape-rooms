@@ -36,7 +36,7 @@ class Bookshelf extends React.Component {
       position: 'absolute',
       height: '220px',
       width: '40px',
-      top: '250px',
+      top: '290px',
       left: '605px'};
 
     return (

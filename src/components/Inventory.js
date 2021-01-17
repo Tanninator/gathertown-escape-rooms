@@ -19,13 +19,13 @@ class Inventory extends React.Component {
   formatInventory() {
     var inventory_list = ' '
     this.state.inventory.forEach(item => inventory_list = inventory_list.concat(item, ", "))
-    return inventory_list.slice(2, -2)
+    return inventory_list.slice(0, -2)
   }
 
   render() {
     return (
       <div>
-        <Navbar bg="primary" variant="dark"> <b>Team Inventory:</b>{ this.formatInventory() }</Navbar>
+        <Navbar bg="primary" variant="dark"> <b>Team Inventory:</b> { this.formatInventory() }</Navbar>
       </div>
     );
   }
