@@ -42,7 +42,7 @@ class Door extends React.Component {
   }
 
   removeImpassableTile() {
-    axios.get('https://gather.town/api/getMap', {
+    axios.get('https://cors-anywhere.herokuapp.com/https://gather.town/api/getMap', {
       params: {
         apiKey: config.API_KEY,
         spaceId: config.ROOM_ID,
@@ -55,7 +55,7 @@ class Door extends React.Component {
       buf[this.state.y * mapData.dimensions[0] + this.state.x] = 0x00;
       mapData.collisions = new Buffer(buf).toString("base64");
 
-      return axios.post("https://gather.town/api/setMap", {
+      return axios.post("https://cors-anywhere.herokuapp.com/https://gather.town/api/setMap", {
         apiKey: config.API_KEY,
         spaceId: config.ROOM_ID,
         mapId: config.MANSION_ID,
