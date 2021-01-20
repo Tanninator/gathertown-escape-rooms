@@ -1,11 +1,11 @@
 import React from 'react';
-import weirdBookshelf from '../images/bookshelf/bookshelf-weird-book.jpg';
-import emptyBookshelf from '../images/bookshelf/bookshelf.jpg';
+import sledgehammer from '../images/storage/sledge.png';
+import msg from '../images/storage/msg.png';
 import db from '../firebase.js'
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 
-class Bookshelf extends React.Component {
+class Storage extends React.Component {
   constructor(props) {
     super(props)
     this.state = { }
@@ -16,17 +16,17 @@ class Bookshelf extends React.Component {
   }
 
   getData() {
-    db.collection("puzzle").doc("bookshelf").get().then((doc) => { this.setState({taken: doc.data().takenToggle}) })
+    db.collection("puzzle").doc("storage").get().then((doc) => { this.setState({taken: doc.data().takenToggle}) })
   }
 
   setDisplayRoute() {
-    return this.state.taken ? emptyBookshelf : weirdBookshelf 
+    return this.state.taken ? msg : sledgehammer 
   }
 
   take() {
     this.setState({taken: true})
-    db.collection("puzzle").doc("bookshelf").set({ takenToggle: true })
-    db.collection("puzzle").doc("inventory").update({items: firebase.firestore.FieldValue.arrayUnion("Odd Book")})
+    db.collection("puzzle").doc("storage").set({ takenToggle: true })
+    db.collection("puzzle").doc("inventory").update({items: firebase.firestore.FieldValue.arrayUnion("Sledgehammer")})
   }
 
   render() {
@@ -37,10 +37,10 @@ class Bookshelf extends React.Component {
 
     const enterStyle = {
       position: 'absolute',
-      height: '220px',
-      width: '40px',
-      top: '290px',
-      left: '605px'};
+      height: '1620px',
+      width: '440px',
+      top: '0px',
+      left: '305px'};
 
     return (
       <div style={bookshelfStyle}>
@@ -51,4 +51,4 @@ class Bookshelf extends React.Component {
   }
 }
 
-export default Bookshelf;
+export default Storage;

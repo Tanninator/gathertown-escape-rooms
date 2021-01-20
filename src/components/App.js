@@ -4,6 +4,8 @@ import Keypad from './Keypad';
 import Bookshelf from './Bookshelf';
 import Room from './Room';
 import Door from './Door';
+import Radio from './Radio';
+import Storage from './Storage';
 import Dashboard from './Dashboard';
 import Inventory from './Inventory';
 
@@ -18,7 +20,7 @@ class App extends Component {
             <Route
               path="**/keypad"
               render={(props) => (
-              <Keypad {...props} passcode='2114' /> )}/>
+              <Keypad {...props} passcode='1224' /> )}/>
             <Route
               path="**/bookshelf"
               render={(props) => (
@@ -31,6 +33,14 @@ class App extends Component {
               path="**/room"
               render={(props) => (
               <Room {...props} /> )}/>
+            <Route
+              path="**/radio"
+              render={(props) => (
+              <Radio {...props} /> )}/>
+            <Route
+              path="**/storage"
+              render={(props) => (
+              <Storage {...props} /> )}/>
             <Route
               path="**/dashboard"
               render={(props) => (

@@ -15,11 +15,11 @@ class Dashboard extends React.Component {
     db.collection("puzzle").doc("door").set({open: false}, {merge: true})
     db.collection("puzzle").doc("keypad").set({openFlag: false, emptyFlag: false}, {merge: true})
     db.collection("puzzle").doc("inventory").set({items: []}, {merge: true})
-    this.lockDoors()
+    this.lockDoorsAndWindows()
     alert('Flags reset!')
   }
 
-  lockDoors() {
+  lockDoorsAndWindows() {
     axios.get('https://cors-anywhere.herokuapp.com/https://gather.town/api/getMap', {
       params: {
         apiKey: config.API_KEY,
@@ -31,7 +31,11 @@ class Dashboard extends React.Component {
       let mapData = result.data;
 
     let buf = Uint8Array.from(Buffer.from(mapData.collisions, "base64"));
-    buf[this.state.y * mapData.dimensions[0] + this.state.x] = 0x00;
+    buf[this.state.y * mapData.dimensions[0] + this.state.x] = 0x01;
+    buf[41 * mapData.dimensions[0] + 24] = 0x01;
+    buf[42 * mapData.dimensions[0] + 24] = 0x01;
+    buf[43 * mapData.dimensions[0] + 24] = 0x01;
+    buf[23 * mapData.dimensions[0] + 49] = 0x01;
     mapData.collisions = new Buffer(buf).toString("base64");
 
       return axios.post("https://cors-anywhere.herokuapp.com/https://gather.town/api/setMap", {

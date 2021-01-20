@@ -25,7 +25,7 @@ class Inventory extends React.Component {
   render() {
     return (
       <div>
-        <Navbar bg="primary" variant="dark"> <b>Team Inventory:</b> { this.formatInventory() }</Navbar>
+        <Navbar bg="primary" variant="dark"><b>Team Inventory: </b> { this.formatInventory() }</Navbar>
       </div>
     );
   }
