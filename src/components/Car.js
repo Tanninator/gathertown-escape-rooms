@@ -9,7 +9,7 @@ import axios from 'axios';
 class Car extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {running: false, inventory: [], hasGas: false, keyName: 'Car Keys', puzzleId: this.props.match.params.puzzleId}
+    this.state = {running: false, inventory: [], hasGas: false, keyName: 'Car Key', puzzleId: this.props.match.params.puzzleId}
   }
 
   componentDidMount() {
@@ -44,12 +44,9 @@ class Car extends React.Component {
     .then(result => {
       let mapData = result.data;
       let buf = Uint8Array.from(Buffer.from(mapData.collisions, "base64"));
-      buf[33 * mapData.dimensions[0] + 58] = 0x00;
-      buf[33 * mapData.dimensions[0] + 59] = 0x00;
-      buf[34 * mapData.dimensions[0] + 58] = 0x00;
-      buf[34 * mapData.dimensions[0] + 59] = 0x00;
-      buf[35 * mapData.dimensions[0] + 58] = 0x00;
-      buf[35 * mapData.dimensions[0] + 59] = 0x00;
+      buf[33 * mapData.dimensions[0] + 57] = 0x00;
+      buf[34 * mapData.dimensions[0] + 57] = 0x00;
+      buf[35 * mapData.dimensions[0] + 57] = 0x00;
       mapData.collisions = new Buffer(buf).toString("base64");
 
       return axios.post("https://cors-anywhere.herokuapp.com/https://gather.town/api/setMap", {

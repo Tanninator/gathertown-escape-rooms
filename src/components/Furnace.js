@@ -18,7 +18,7 @@ class Furnace extends React.Component {
   }
 
   getData() {
-    db.collection(this.state.puzzleId).doc("furnace").get().then((doc) => { this.setState({running: doc.data().running, hasIngot: doc.data().hasIngot, hasMould: doc.data().hasMould, hasCoal: doc.data().hasCoal, done: doc.data().done}) })
+    db.collection(this.state.puzzleId).doc("furnace").get().then((doc) => { this.setState({running: doc.data().running, hasIngot: doc.data().hasIngot, hasMould: doc.data().hasMould, hasCoal: doc.data().hasCoal, done: doc.data().done, empty: doc.data().empty}) })
     db.collection(this.state.puzzleId).doc("inventory").get().then((doc) => { this.setState({inventory: doc.data().items}) })
   }
 
@@ -85,6 +85,7 @@ class Furnace extends React.Component {
   }
 
   takeKey() {
+    db.collection(this.state.puzzleId).doc("inventory").update({ items: firebase.firestore.FieldValue.arrayUnion("Car Key") })
     db.collection(this.state.puzzleId).doc("furnace").set({empty: true}, {merge: true})
     this.setState({empty: true})
   }
