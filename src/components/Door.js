@@ -38,36 +38,7 @@ class Door extends React.Component {
       db.collection("puzzle").doc("door").set({open: true}, {merge: true})
       this.setState({open: true})
       this.removeImpassableTile()
-      if (this.state.keyName === 'Bathroom Key') { this.openWindow() }
     }
-  }
-
-  openWindow() {
-    axios.get('https://cors-anywhere.herokuapp.com/https://gather.town/api/getMap', {
-      params: {
-        apiKey: config.API_KEY,
-        spaceId: config.ROOM_ID,
-        mapId: config.MANSION_ID,
-      }
-    })
-    .then(result => {
-      let mapData = result.data;
-      let buf = Uint8Array.from(Buffer.from(mapData.collisions, "base64"));
-      buf[41 * mapData.dimensions[0] + 24] = 0x00;
-      buf[42 * mapData.dimensions[0] + 24] = 0x00;
-      buf[43 * mapData.dimensions[0] + 24] = 0x00;
-      mapData.collisions = new Buffer(buf).toString("base64");
-
-      return axios.post("https://cors-anywhere.herokuapp.com/https://gather.town/api/setMap", {
-        apiKey: config.API_KEY,
-        spaceId: config.ROOM_ID,
-        mapId: config.MANSION_ID,
-        mapContent: mapData
-      })
-    })
-    .catch(err => {
-      console.log(err);
-    })
   }
 
   removeImpassableTile() {
@@ -82,6 +53,9 @@ class Door extends React.Component {
       let mapData = result.data;
       let buf = Uint8Array.from(Buffer.from(mapData.collisions, "base64"));
       buf[this.state.y * mapData.dimensions[0] + this.state.x] = 0x00;
+      buf[41 * mapData.dimensions[0] + 24] = 0x00;
+      buf[42 * mapData.dimensions[0] + 24] = 0x00;
+      buf[43 * mapData.dimensions[0] + 24] = 0x00;
       mapData.collisions = new Buffer(buf).toString("base64");
 
       return axios.post("https://cors-anywhere.herokuapp.com/https://gather.town/api/setMap", {
