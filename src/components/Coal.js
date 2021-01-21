@@ -6,7 +6,7 @@ import 'firebase/firestore';
 
 class Coal extends React.Component {
   componentDidMount() {
-    const inventoryRef = db.collection("puzzle").doc("inventory")
+    const inventoryRef = db.collection(this.props.match.params.puzzleId).doc("inventory")
     inventoryRef.update({items: firebase.firestore.FieldValue.arrayUnion("Coal")})
   }
 

@@ -6,7 +6,7 @@ import db from '../firebase.js';
 class GasCap extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {inventory: [], hasGas: false, keyName: 'Gasoline'}
+    this.state = {inventory: [], hasGas: false, keyName: 'Gasoline', puzzleId: this.props.match.params.puzzleId}
   }
 
   componentDidMount() {
@@ -14,8 +14,8 @@ class GasCap extends React.Component {
   }
 
   getData() {
-    db.collection("puzzle").doc("car").get().then((doc) => { this.setState({hasGas: doc.data().hasGas}) })
-    db.collection("puzzle").doc("inventory").get().then((doc) => { this.setState({inventory: doc.data().items}) })
+    db.collection(this.state.puzzleId).doc("car").get().then((doc) => { this.setState({hasGas: doc.data().hasGas}) })
+    db.collection(this.state.puzzleId).doc("inventory").get().then((doc) => { this.setState({inventory: doc.data().items}) })
   }
 
   hasKey() {
@@ -24,19 +24,11 @@ class GasCap extends React.Component {
 
   turnOn() {
     if (this.hasKey()) {
-      db.collection("puzzle").doc("car").set({hasGas: true}, {merge: true})
+      db.collection(this.state.puzzleId).doc("car").set({hasGas: true}, {merge: true})
       this.setState({hasGas: true})
+    } else {
+      alert('You have nothing to gather it with!')
     }
-  }
-
-  buttonText(hasKey) {
-    if (!this.hasKey()) {
-      return 'No Gasoline'
-    }
-    if (this.state.hasGas) {
-      return 'Filled'
-    }
-    return 'Fill up!'
   }
 
   render() {
@@ -53,7 +45,7 @@ class GasCap extends React.Component {
     return (
       <div style={bookshelfStyle}>
         <img src={gascap} align="center" className="car center" alt="car" />
-        { this.state.running ? <div/> : <Button size="lg" style={enterStyle} variant={this.hasKey() && !this.state.hasGas ? 'primary' : 'secondary'} id='button' onClick={() => { this.turnOn()} }> { this.buttonText() } </Button>}
+        { this.state.running ? <div/> : <Button size="lg" style={enterStyle} variant={this.hasKey() && !this.state.hasGas ? 'primary' : 'secondary'} id='button' onClick={() => { this.turnOn()} }> Harvest Gasoline? </Button>}
       </div>
     );
   }

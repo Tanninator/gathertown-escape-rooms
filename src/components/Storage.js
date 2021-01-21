@@ -8,7 +8,7 @@ import 'firebase/firestore';
 class Storage extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { }
+    this.state = { puzzleId: this.props.match.params.puzzleId }
   }
 
   componentDidMount() {
@@ -16,7 +16,7 @@ class Storage extends React.Component {
   }
 
   getData() {
-    db.collection("puzzle").doc("storage").get().then((doc) => { this.setState({taken: doc.data().taken}) })
+    db.collection(this.state.puzzleId).doc("storage").get().then((doc) => { this.setState({taken: doc.data().taken}) })
   }
 
   setDisplayRoute() {
@@ -25,8 +25,8 @@ class Storage extends React.Component {
 
   take() {
     this.setState({taken: true})
-    db.collection("puzzle").doc("storage").set({ taken: true })
-    db.collection("puzzle").doc("inventory").update({items: firebase.firestore.FieldValue.arrayUnion("Sledgehammer")})
+    db.collection(this.state.puzzleId).doc("storage").set({ taken: true }, {merge: true})
+    db.collection(this.state.puzzleId).doc("inventory").update({items: firebase.firestore.FieldValue.arrayUnion("Sledgehammer")})
   }
 
   render() {

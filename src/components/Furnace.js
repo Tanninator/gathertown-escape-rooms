@@ -10,7 +10,7 @@ import db from '../firebase.js';
 class Furnace extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {running: false, inventory: [], hasIngot: false, hasMould: false, hasCoal: false, done: false, empty: false}
+    this.state = {running: false, inventory: [], hasIngot: false, hasMould: false, hasCoal: false, done: false, empty: false, puzzleId: this.props.match.params.puzzleId}
   }
 
   componentDidMount() {
@@ -18,8 +18,8 @@ class Furnace extends React.Component {
   }
 
   getData() {
-    db.collection("puzzle").doc("furnace").get().then((doc) => { this.setState({running: doc.data().running, hasIngot: doc.data().hasIngot, hasMould: doc.data().hasMould, hasCoal: doc.data().hasCoal, done: doc.data().done}) })
-    db.collection("puzzle").doc("inventory").get().then((doc) => { this.setState({inventory: doc.data().items}) })
+    db.collection(this.state.puzzleId).doc("furnace").get().then((doc) => { this.setState({running: doc.data().running, hasIngot: doc.data().hasIngot, hasMould: doc.data().hasMould, hasCoal: doc.data().hasCoal, done: doc.data().done}) })
+    db.collection(this.state.puzzleId).doc("inventory").get().then((doc) => { this.setState({inventory: doc.data().items}) })
   }
 
   hasCoal() {
@@ -38,7 +38,7 @@ class Furnace extends React.Component {
     if (this.state.running) { alert('Furnace is already running!') }
     if (!this.state.hasCoal) { alert('Need to add coal first!') }
     else {
-      db.collection("puzzle").doc("furnace").set({running: true}, {merge: true})
+      db.collection(this.state.puzzleId).doc("furnace").set({running: true}, {merge: true})
       this.setState({running: true})
     }
   }
@@ -48,9 +48,9 @@ class Furnace extends React.Component {
     if (this.state.running) { alert('Furnace is already running!') }
     else if (!this.hasCoal()) { alert('Need coal to add coal!') }
     else {
-      db.collection("puzzle").doc("furnace").set({hasCoal: true}, {merge: true})
+      db.collection(this.state.puzzleId).doc("furnace").set({hasCoal: true}, {merge: true})
       this.setState({hasCoal: true}) 
-      db.collection("puzzle").doc("inventory").update({ items: firebase.firestore.FieldValue.arrayRemove("Coal") })
+      db.collection(this.state.puzzleId).doc("inventory").update({ items: firebase.firestore.FieldValue.arrayRemove("Coal") })
     }
   }
 
@@ -58,8 +58,8 @@ class Furnace extends React.Component {
     if (this.state.hasIngot) { alert('You already added the bronze ingot!') }
     if (!this.hasIngot()) { alert('You need the bronze ingot!') }
     else {
-      db.collection("puzzle").doc("inventory").update({ items: firebase.firestore.FieldValue.arrayRemove("Bronze Ingot") })
-      db.collection("puzzle").doc("furnace").set({hasIngot: true}, {merge: true})
+      db.collection(this.state.puzzleId).doc("inventory").update({ items: firebase.firestore.FieldValue.arrayRemove("Bronze Ingot") })
+      db.collection(this.state.puzzleId).doc("furnace").set({hasIngot: true}, {merge: true})
       this.setState({hasIngot: true})
     }
   }
@@ -68,8 +68,8 @@ class Furnace extends React.Component {
     if (this.state.hasMould) { alert('You already added the key mould!') }
     if (!this.hasMould()) { alert('You need the key mould!') }
     else {
-      db.collection("puzzle").doc("inventory").update({ items: firebase.firestore.FieldValue.arrayRemove("Key Mould") })
-      db.collection("puzzle").doc("furnace").set({hasMould: true}, {merge: true})
+      db.collection(this.state.puzzleId).doc("inventory").update({ items: firebase.firestore.FieldValue.arrayRemove("Key Mould") })
+      db.collection(this.state.puzzleId).doc("furnace").set({hasMould: true}, {merge: true})
       this.setState({hasMould: true})
     }
   }
@@ -79,13 +79,13 @@ class Furnace extends React.Component {
     else if (!this.state.hasIngot) { alert('Needs bronze ingot') }
     else if (!this.state.hasMould) { alert('Needs key mould') }
     else {
-      db.collection("puzzle").doc("furnace").set({done: true}, {merge: true})
+      db.collection(this.state.puzzleId).doc("furnace").set({done: true}, {merge: true})
       this.setState({done: true})
     }
   }
 
   takeKey() {
-    db.collection("puzzle").doc("furnace").set({empty: true}, {merge: true})
+    db.collection(this.state.puzzleId).doc("furnace").set({empty: true}, {merge: true})
     this.setState({empty: true})
   }
 

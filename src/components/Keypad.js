@@ -26,8 +26,8 @@ class Keypad extends React.Component {
   }
 
   getData() {
-    const keypadRef = db.collection("puzzle").doc("keypad")
-    keypadRef.get().then((doc) => { this.setState({open: doc.data().openFlag, empty: doc.data().emptyFlag, keyName: doc.data().keyName}) })
+    const keypadRef = db.collection(this.props.match.params.puzzleId).doc(this.props.match.params.keypadId)
+    keypadRef.get().then((doc) => { this.setState({open: doc.data().openFlag, passcode: doc.data().passcode, empty: doc.data().emptyFlag, keyName: doc.data().keyName}) })
   }
 
   addNum(number) {
@@ -44,9 +44,9 @@ class Keypad extends React.Component {
   }
 
   enter() {
-    if (this.state.value === this.props.passcode) {
+    if (this.state.value === this.state.passcode) {
       this.setState({open: true})
-      const keypadRef = db.collection("puzzle").doc("keypad")
+      const keypadRef = db.collection(this.props.match.params.puzzleId).doc(this.props.match.params.keypadId)
       keypadRef.set({openFlag: true}, {merge: true})
     } else {
       this.setState({value: ''})
@@ -54,8 +54,8 @@ class Keypad extends React.Component {
   }
 
   take() {
-    db.collection("puzzle").doc("keypad").set({emptyFlag: true}, {merge: true})
-    const inventoryRef = db.collection("puzzle").doc("inventory")
+    db.collection(this.props.match.params.puzzleId).doc(this.props.match.params.keypadId).set({emptyFlag: true}, {merge: true})
+    const inventoryRef = db.collection(this.props.match.params.puzzleId).doc("inventory")
     inventoryRef.update({items: firebase.firestore.FieldValue.arrayUnion(this.state.keyName)})
     this.setState({empty: true})
   }

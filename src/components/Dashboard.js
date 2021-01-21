@@ -10,14 +10,15 @@ class Dashboard extends React.Component {
   }
 
   reset() {
-    db.collection("puzzle").doc("bookshelf").set({takenToggle: false}, {merge: true})
-    db.collection("puzzle").doc("room").set({offToggle: false}, {merge: true})
-    db.collection("puzzle").doc("door").set({open: false}, {merge: true})
-    db.collection("puzzle").doc("keypad").set({openFlag: false, emptyFlag: false}, {merge: true})
-    db.collection("puzzle").doc("car").set({running: false, hasGas: false}, {merge: true})
-    db.collection("puzzle").doc("storage").set({taken: false}, {merge: true})
+    const puzzleId = this.props.match.params.puzzleId
+    db.collection(puzzleId).doc("bookshelf").set({takenToggle: false}, {merge: true})
+    db.collection(puzzleId).doc("room").set({offToggle: false}, {merge: true})
+    db.collection(puzzleId).doc("door").set({open: false}, {merge: true})
+    db.collection(puzzleId).doc("keypad").set({openFlag: false, emptyFlag: false}, {merge: true})
+    db.collection(puzzleId).doc("car").set({running: false, hasGas: false}, {merge: true})
+    db.collection(puzzleId).doc("storage").set({taken: false}, {merge: true})
 
-    db.collection("puzzle").doc("inventory").set({items: []}, {merge: true})
+    db.collection(puzzleId).doc("inventory").set({items: []}, {merge: true})
     this.lockDoorsAndWindows()
     this.lockRedDoor()
     alert('Flags reset!')

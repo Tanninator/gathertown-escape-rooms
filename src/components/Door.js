@@ -9,7 +9,7 @@ import axios from 'axios';
 class Door extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {open: false, inventory: [], keyName: 'placeholder', x: null, y: null }
+    this.state = {open: false, inventory: [], keyName: 'placeholder', x: null, y: null, puzzleId: this.props.match.params.puzzleId }
   }
 
   componentDidMount() {
@@ -17,8 +17,8 @@ class Door extends React.Component {
   }
 
   getData() {
-    db.collection("puzzle").doc("door").get().then((doc) => { this.setState({open: doc.data().open, keyName: doc.data().keyName, x: doc.data().x, y: doc.data().y}) })
-    db.collection("puzzle").doc("inventory").get().then((doc) => { this.setState({inventory: doc.data().items}) })
+    db.collection(this.state.puzzleId).doc(this.props.match.params.doorId).get().then((doc) => { this.setState({open: doc.data().open, keyName: doc.data().keyName, x: doc.data().x, y: doc.data().y}) })
+    db.collection(this.state.puzzleId).doc("inventory").get().then((doc) => { this.setState({inventory: doc.data().items}) })
   }
 
   setDisplayRoute() {
@@ -35,7 +35,7 @@ class Door extends React.Component {
 
   open() {
     if (this.hasKey()) {
-      db.collection("puzzle").doc("door").set({open: true}, {merge: true})
+      db.collection(this.state.puzzleId).doc(this.props.match.params.doorId).set({open: true}, {merge: true})
       this.setState({open: true})
       this.removeImpassableTile()
     }
@@ -53,9 +53,11 @@ class Door extends React.Component {
       let mapData = result.data;
       let buf = Uint8Array.from(Buffer.from(mapData.collisions, "base64"));
       buf[this.state.y * mapData.dimensions[0] + this.state.x] = 0x00;
-      buf[41 * mapData.dimensions[0] + 24] = 0x00;
-      buf[42 * mapData.dimensions[0] + 24] = 0x00;
-      buf[43 * mapData.dimensions[0] + 24] = 0x00;
+      if (this.state.keyName == 'Basement Key') {
+        buf[41 * mapData.dimensions[0] + 24] = 0x00;
+        buf[42 * mapData.dimensions[0] + 24] = 0x00;
+        buf[43 * mapData.dimensions[0] + 24] = 0x00;
+      }
       mapData.collisions = new Buffer(buf).toString("base64");
 
       return axios.post("https://cors-anywhere.herokuapp.com/https://gather.town/api/setMap", {

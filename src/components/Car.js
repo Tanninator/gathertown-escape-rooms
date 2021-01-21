@@ -9,7 +9,7 @@ import axios from 'axios';
 class Car extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {running: false, inventory: [], hasGas: false, keyName: 'Car Keys'}
+    this.state = {running: false, inventory: [], hasGas: false, keyName: 'Car Keys', puzzleId: this.props.match.params.puzzleId}
   }
 
   componentDidMount() {
@@ -17,8 +17,8 @@ class Car extends React.Component {
   }
 
   getData() {
-    db.collection("puzzle").doc("car").get().then((doc) => { this.setState({running: doc.data().running, hasGas: doc.data().hasGas}) })
-    db.collection("puzzle").doc("inventory").get().then((doc) => { this.setState({inventory: doc.data().items}) })
+    db.collection(this.state.puzzleId).doc("car").get().then((doc) => { this.setState({running: doc.data().running, hasGas: doc.data().hasGas}) })
+    db.collection(this.state.puzzleId).doc("inventory").get().then((doc) => { this.setState({inventory: doc.data().items}) })
   }
 
   hasKey() {
@@ -27,7 +27,7 @@ class Car extends React.Component {
 
   turnOn() {
     if (this.hasKey() && this.state.hasGas) {
-      db.collection("puzzle").doc("car").set({running: true}, {merge: true})
+      db.collection(this.state.puzzleId).doc("car").set({running: true}, {merge: true})
       this.setState({running: true})
       this.openCarTiles()
     }

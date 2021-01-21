@@ -1,6 +1,7 @@
 import React from 'react';
 import db from '../firebase.js'
 import Navbar from 'react-bootstrap/Navbar';
+import { withRouter } from "react-router-dom";
 
 class Inventory extends React.Component {
   constructor(props) {
@@ -9,11 +10,12 @@ class Inventory extends React.Component {
   }
 
   componentDidMount() {
-    this.getData()
+    //this.getData()
   }
 
   getData() {
-    db.collection("puzzle").doc("inventory").get().then((doc) => { this.setState({inventory: doc.data().items}) })
+    const puzzleId = this.props.location.pathname.slice(1).split('/')[0];
+    db.collection(puzzleId).doc("inventory").get().then((doc) => { this.setState({inventory: doc.data().items}) })
   }
 
   formatInventory() {
@@ -31,4 +33,4 @@ class Inventory extends React.Component {
   }
 }
 
-export default Inventory;
+export default withRouter(Inventory);

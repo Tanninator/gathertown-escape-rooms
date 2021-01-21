@@ -8,7 +8,7 @@ import 'firebase/firestore';
 class Bookshelf extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { }
+    this.state = { puzzleId: this.props.match.params.puzzleId }
   }
 
   componentDidMount() {
@@ -16,7 +16,7 @@ class Bookshelf extends React.Component {
   }
 
   getData() {
-    db.collection("puzzle").doc("bookshelf").get().then((doc) => { this.setState({taken: doc.data().takenToggle}) })
+    db.collection(this.state.puzzleId).doc("bookshelf").get().then((doc) => { this.setState({taken: doc.data().takenToggle}) })
   }
 
   setDisplayRoute() {
@@ -25,8 +25,8 @@ class Bookshelf extends React.Component {
 
   take() {
     this.setState({taken: true})
-    db.collection("puzzle").doc("bookshelf").set({ takenToggle: true })
-    db.collection("puzzle").doc("inventory").update({items: firebase.firestore.FieldValue.arrayUnion("Odd Book")})
+    db.collection(this.state.puzzleId).doc("bookshelf").set({ takenToggle: true })
+    db.collection(this.state.puzzleId).doc("inventory").update({items: firebase.firestore.FieldValue.arrayUnion("Odd Book")})
   }
 
   render() {

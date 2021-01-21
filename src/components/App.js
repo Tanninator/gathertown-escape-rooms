@@ -8,12 +8,13 @@ import RedDoor from './RedDoor';
 import Radio from './Radio';
 import Storage from './Storage';
 import FloodedRoom from './FloodedRoom';
+import Inventory from './Inventory';
 import Furnace from './Furnace';
 import Coal from './Coal';
+import TechLock from './TechLock';
 import Car from './Car';
 import GasCap from './GasCap';
 import Dashboard from './Dashboard';
-import Inventory from './Inventory';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -30,55 +31,59 @@ class App extends Component {
           <Inventory />
           <Switch>
             <Route
-              path="**/keypad"
+              path="**/:puzzleId/keypad/:keypadId"
               render={(props) => (
-              <Keypad {...props} passcode='1224' /> )}/>
+              <Keypad {...props}/> )}/>
             <Route
-              path="**/bookshelf"
+              path="**/:puzzleId/bookshelf"
               render={(props) => (
               <Bookshelf {...props} /> )}/>
             <Route
-              path="**/door"
+              path="**/:puzzleId/door/:doorId"
               render={(props) => (
               <Door {...props} /> )}/>
             <Route
-              path="**/room"
+              path="**/:puzzleId/room"
               render={(props) => (
               <Room {...props} /> )}/>
             <Route
-              path="**/furnace"
+              path="**/:puzzleId/furnace"
               render={(props) => (
               <Furnace {...props} /> )}/>
             <Route
-              path="**/reddoor"
+              path="**/:puzzleId/techlock"
+              render={(props) => (
+              <TechLock {...props} /> )}/>
+            <Route
+              path="**/:puzzleId/reddoor"
               render={(props) => (
               <RedDoor {...props} /> )}/>
             <Route
-              path="**/flooded_room"
+              path="**/:puzzleId/flooded_room"
               render={(props) => (
               <FloodedRoom {...props} /> )}/>
             <Route
-              path="**/radio"
+              path="**/:puzzleId/radio"
               render={(props) => (
               <Radio {...props} /> )}/>
             <Route
-              path="**/storage"
+              path="**/:puzzleId/storage"
               render={(props) => (
               <Storage {...props} /> )}/>
             <Route
-              path="**/car"
+              path="**/:puzzleId/car"
               render={(props) => (
               <Car {...props} /> )}/>
             <Route
-              path="**/coal"
+              path="**/:puzzleId/coal"
               render={(props) => (
               <Coal {...props} /> )}/>
             <Route
-              path="**/gascap"
+              path="**/:puzzleId/gascap"
               render={(props) => (
               <GasCap {...props} /> )}/>
             <Route
-              path="**/dashboard"
+              path="**/:puzzleId/dashboard"
               render={(props) => (
               <Dashboard {...props} /> )}/>
           </Switch>

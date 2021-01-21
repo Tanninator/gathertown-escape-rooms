@@ -14,7 +14,7 @@ class Room extends React.Component {
   }
 
   getData() {
-    db.collection("puzzle").doc("room").get().then((doc) => { this.setState({off: doc.data().offToggle}) })
+    db.collection(this.props.match.params.puzzleId).doc("room").get().then((doc) => { this.setState({off: doc.data().offToggle}) })
   }
 
   setDisplayRoute() {
@@ -22,7 +22,7 @@ class Room extends React.Component {
   }
 
   toggle() {
-    db.collection("puzzle").doc("room").set({offToggle: !this.state.off})
+    db.collection(this.props.match.params.puzzleId).doc("room").set({offToggle: !this.state.off}, {merge: true})
     this.setState({off: !this.state.off})
   }
 

@@ -9,7 +9,7 @@ import axios from 'axios';
 class RedDoor extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {open: false, inventory: [], keyName: 'placeholder', x: 56, y: 19 }
+    this.state = {open: false, inventory: [], keyName: 'placeholder', x: 56, y: 19, puzzleId: this.props.match.params.puzzleId }
   }
 
   componentDidMount() {
@@ -17,8 +17,8 @@ class RedDoor extends React.Component {
   }
 
   getData() {
-    db.collection("puzzle").doc("redDoor").get().then((doc) => { this.setState({open: doc.data().open, keyName: doc.data().keyName, x: doc.data().x, y: doc.data().y}) })
-    db.collection("puzzle").doc("inventory").get().then((doc) => { this.setState({inventory: doc.data().items}) })
+    db.collection(this.state.puzzleId).doc("redDoor").get().then((doc) => { this.setState({open: doc.data().open, keyName: doc.data().keyName, x: doc.data().x, y: doc.data().y}) })
+    db.collection(this.state.puzzleId).doc("inventory").get().then((doc) => { this.setState({inventory: doc.data().items}) })
   }
 
   setDisplayRoute() {
@@ -35,7 +35,7 @@ class RedDoor extends React.Component {
 
   open() {
     if (this.hasKey()) {
-      db.collection("puzzle").doc("reddoor").set({open: true}, {merge: true})
+      db.collection(this.state.puzzleId).doc("reddoor").set({open: true}, {merge: true})
       this.setState({open: true})
       this.removeImpassableTile()
       this.openLibrary()
