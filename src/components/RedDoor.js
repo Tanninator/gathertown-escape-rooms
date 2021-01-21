@@ -17,7 +17,7 @@ class RedDoor extends React.Component {
   }
 
   getData() {
-    db.collection("puzzle").doc("reddoor").get().then((doc) => { this.setState({open: doc.data().open, keyName: doc.data().keyName, x: doc.data().x, y: doc.data().y}) })
+    db.collection("puzzle").doc("redDoor").get().then((doc) => { this.setState({open: doc.data().open, keyName: doc.data().keyName, x: doc.data().x, y: doc.data().y}) })
     db.collection("puzzle").doc("inventory").get().then((doc) => { this.setState({inventory: doc.data().items}) })
   }
 
