@@ -59,7 +59,7 @@ class App extends Component {
               render={(props) => (
               <RedDoor {...props} /> )}/>
             <Route
-              path="**/:puzzleId/flooded_room"
+              path="**/:puzzleId/floodedroom"
               render={(props) => (
               <FloodedRoom {...props} /> )}/>
             <Route

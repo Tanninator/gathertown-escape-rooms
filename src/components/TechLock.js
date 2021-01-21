@@ -46,7 +46,7 @@ class TechLock extends React.Component {
   }
 
   open() {
-    if (this.state.value == this.state.password) {
+    if (this.state.value === this.state.password) {
       db.collection(this.props.match.params.puzzleId).doc("techlock").set({open: true}, {merge: true})
       this.setState({open: true})
     } else {
