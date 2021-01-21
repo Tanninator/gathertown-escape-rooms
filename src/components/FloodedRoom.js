@@ -1,11 +1,11 @@
 import React from 'react';
-import sledgehammer from '../images/storage/sledge.png';
-import msg from '../images/storage/msg.png';
+import gas from '../images/flooded-room/flooded-with-gas.jpg';
+import noGas from '../images/flooded-room/flooded-room.jpg';
 import db from '../firebase.js'
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 
-class Storage extends React.Component {
+class FloodedRoom extends React.Component {
   constructor(props) {
     super(props)
     this.state = { }
@@ -16,17 +16,17 @@ class Storage extends React.Component {
   }
 
   getData() {
-    db.collection("puzzle").doc("storage").get().then((doc) => { this.setState({taken: doc.data().taken}) })
+    db.collection("puzzle").doc("flooded").get().then((doc) => { this.setState({taken: doc.data().taken}) })
   }
 
   setDisplayRoute() {
-    return this.state.taken ? msg : sledgehammer 
+    return this.state.taken ? noGas : gas 
   }
 
   take() {
     this.setState({taken: true})
-    db.collection("puzzle").doc("storage").set({ taken: true })
-    db.collection("puzzle").doc("inventory").update({items: firebase.firestore.FieldValue.arrayUnion("Sledgehammer")})
+    db.collection("puzzle").doc("flooded").set({ taken: true })
+    db.collection("puzzle").doc("inventory").update({items: firebase.firestore.FieldValue.arrayUnion("Gas Can")})
   }
 
   render() {
@@ -37,10 +37,10 @@ class Storage extends React.Component {
 
     const enterStyle = {
       position: 'absolute',
-      height: '1620px',
-      width: '440px',
-      top: '0px',
-      left: '305px'};
+      height: '220px',
+      width: '40px',
+      top: '290px',
+      left: '605px'};
 
     return (
       <div style={bookshelfStyle}>
@@ -51,4 +51,4 @@ class Storage extends React.Component {
   }
 }
 
-export default Storage;
+export default FloodedRoom;

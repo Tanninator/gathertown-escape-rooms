@@ -4,8 +4,12 @@ import Keypad from './Keypad';
 import Bookshelf from './Bookshelf';
 import Room from './Room';
 import Door from './Door';
+import RedDoor from './RedDoor';
 import Radio from './Radio';
 import Storage from './Storage';
+import FloodedRoom from './FloodedRoom';
+import Furnace from './Furnace';
+import Coal from './Coal';
 import Car from './Car';
 import GasCap from './GasCap';
 import Dashboard from './Dashboard';
@@ -15,7 +19,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 class App extends Component {
   render() {
+    const background = {
+      backgroundColor: 'black',
+      width: '100%',
+      height: '100%'};
+
     return (
+        <div style={background}>
         <BrowserRouter>
           <Inventory />
           <Switch>
@@ -36,6 +46,18 @@ class App extends Component {
               render={(props) => (
               <Room {...props} /> )}/>
             <Route
+              path="**/furnace"
+              render={(props) => (
+              <Furnace {...props} /> )}/>
+            <Route
+              path="**/reddoor"
+              render={(props) => (
+              <RedDoor {...props} /> )}/>
+            <Route
+              path="**/flooded_room"
+              render={(props) => (
+              <FloodedRoom {...props} /> )}/>
+            <Route
               path="**/radio"
               render={(props) => (
               <Radio {...props} /> )}/>
@@ -48,6 +70,10 @@ class App extends Component {
               render={(props) => (
               <Car {...props} /> )}/>
             <Route
+              path="**/coal"
+              render={(props) => (
+              <Coal {...props} /> )}/>
+            <Route
               path="**/gascap"
               render={(props) => (
               <GasCap {...props} /> )}/>
@@ -56,7 +82,7 @@ class App extends Component {
               render={(props) => (
               <Dashboard {...props} /> )}/>
           </Switch>
-        </BrowserRouter>)
+        </BrowserRouter></div>)
   }
 }
 

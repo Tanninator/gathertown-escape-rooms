@@ -19,6 +19,7 @@ class Dashboard extends React.Component {
 
     db.collection("puzzle").doc("inventory").set({items: []}, {merge: true})
     this.lockDoorsAndWindows()
+    this.lockRedDoor()
     alert('Flags reset!')
   }
 
@@ -51,6 +52,32 @@ class Dashboard extends React.Component {
         apiKey: config.API_KEY,
         spaceId: config.ROOM_ID,
         mapId: config.MANSION_ID,
+        mapContent: mapData
+      })
+    })
+    .catch(err => {
+      console.log(err);
+    })
+  }
+
+  lockRedDoor() {
+    axios.get('https://cors-anywhere.herokuapp.com/https://gather.town/api/getMap', {
+      params: {
+        apiKey: config.API_KEY,
+        spaceId: config.ROOM_ID,
+        mapId: config.MIRROR_ID,
+      }
+    })
+    .then(result => {
+      let mapData = result.data;
+      let buf = Uint8Array.from(Buffer.from(mapData.collisions, "base64"));
+      buf[19 * mapData.dimensions[0] + 56] = 0x01;
+      mapData.collisions = new Buffer(buf).toString("base64");
+
+      return axios.post("https://cors-anywhere.herokuapp.com/https://gather.town/api/setMap", {
+        apiKey: config.API_KEY,
+        spaceId: config.ROOM_ID,
+        mapId: config.MIRROR_ID,
         mapContent: mapData
       })
     })

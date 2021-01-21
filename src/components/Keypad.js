@@ -27,7 +27,7 @@ class Keypad extends React.Component {
 
   getData() {
     const keypadRef = db.collection("puzzle").doc("keypad")
-    keypadRef.get().then((doc) => { this.setState({open: doc.data().openFlag, empty: doc.data().emptyFlag}) })
+    keypadRef.get().then((doc) => { this.setState({open: doc.data().openFlag, empty: doc.data().emptyFlag, keyName: doc.data().keyName}) })
   }
 
   addNum(number) {
@@ -56,7 +56,7 @@ class Keypad extends React.Component {
   take() {
     db.collection("puzzle").doc("keypad").set({emptyFlag: true}, {merge: true})
     const inventoryRef = db.collection("puzzle").doc("inventory")
-    inventoryRef.update({items: firebase.firestore.FieldValue.arrayUnion("Bathroom Key")})
+    inventoryRef.update({items: firebase.firestore.FieldValue.arrayUnion(this.state.keyName)})
     this.setState({empty: true})
   }
 
