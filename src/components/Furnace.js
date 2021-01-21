@@ -120,7 +120,7 @@ class Furnace extends React.Component {
       left: '845px'};
 
     if (this.state.done) {
-      return( this.state.empty ? <h1 style={{color: 'white'}}>You took the key</h1> : <img src={key} onClick={() => { this.takeKey()} } align="center" />)
+      return( this.state.empty ? <h1 style={{color: 'white'}}>You took the key</h1> : <img src={key} onClick={() => { this.takeKey()} } align="center" alt="key" />)
     } else {
       return(
         <div>
