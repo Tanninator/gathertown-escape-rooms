@@ -96,11 +96,11 @@ class Door extends React.Component {
     })
   }
 
-  buttonText(hasKey) {
+  buttonText() {
     if (this.state.keyName === 'Bathroom Key') { 
-      return hasKey ? 'Open Door' : "You don't have the key" 
+      return this.hasKey() ? 'Open Door' : "You don't have the key" 
     } else {
-      return hasKey ? 'Destroy the door' : 'You might be able to break the door down'
+      return this.hasKey() ? 'Destroy the door' : 'You might be able to break the door down'
     }
   }
 

@@ -14,6 +14,9 @@ class Dashboard extends React.Component {
     db.collection("puzzle").doc("room").set({offToggle: false}, {merge: true})
     db.collection("puzzle").doc("door").set({open: false}, {merge: true})
     db.collection("puzzle").doc("keypad").set({openFlag: false, emptyFlag: false}, {merge: true})
+    db.collection("puzzle").doc("car").set({running: false, hasGas: false}, {merge: true})
+    db.collection("puzzle").doc("storage").set({taken: false}, {merge: true})
+
     db.collection("puzzle").doc("inventory").set({items: []}, {merge: true})
     this.lockDoorsAndWindows()
     alert('Flags reset!')
@@ -36,6 +39,12 @@ class Dashboard extends React.Component {
     buf[42 * mapData.dimensions[0] + 24] = 0x01;
     buf[43 * mapData.dimensions[0] + 24] = 0x01;
     buf[23 * mapData.dimensions[0] + 49] = 0x01;
+    buf[33 * mapData.dimensions[0] + 58] = 0x01;
+    buf[33 * mapData.dimensions[0] + 59] = 0x01;
+    buf[34 * mapData.dimensions[0] + 58] = 0x01;
+    buf[34 * mapData.dimensions[0] + 59] = 0x01;
+    buf[35 * mapData.dimensions[0] + 58] = 0x01;
+    buf[35 * mapData.dimensions[0] + 59] = 0x01;
     mapData.collisions = new Buffer(buf).toString("base64");
 
       return axios.post("https://cors-anywhere.herokuapp.com/https://gather.town/api/setMap", {

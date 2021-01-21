@@ -6,6 +6,8 @@ import Room from './Room';
 import Door from './Door';
 import Radio from './Radio';
 import Storage from './Storage';
+import Car from './Car';
+import GasCap from './GasCap';
 import Dashboard from './Dashboard';
 import Inventory from './Inventory';
 
@@ -41,6 +43,14 @@ class App extends Component {
               path="**/storage"
               render={(props) => (
               <Storage {...props} /> )}/>
+            <Route
+              path="**/car"
+              render={(props) => (
+              <Car {...props} /> )}/>
+            <Route
+              path="**/gascap"
+              render={(props) => (
+              <GasCap {...props} /> )}/>
             <Route
               path="**/dashboard"
               render={(props) => (
