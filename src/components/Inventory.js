@@ -10,7 +10,7 @@ class Inventory extends React.Component {
   }
 
   componentDidMount() {
-    //this.getData()
+    this.getData()
   }
 
   getData() {

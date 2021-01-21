@@ -27,7 +27,7 @@ class GasCap extends React.Component {
       db.collection(this.state.puzzleId).doc("car").set({hasGas: true}, {merge: true})
       this.setState({hasGas: true})
     } else {
-      alert('You have nothing to gather it with!')
+      alert('You have nothing to fill it with!')
     }
   }
 
@@ -45,7 +45,7 @@ class GasCap extends React.Component {
     return (
       <div style={bookshelfStyle}>
         <img src={gascap} align="center" className="car center" alt="car" />
-        { this.state.running ? <div/> : <Button size="lg" style={enterStyle} variant={this.hasKey() && !this.state.hasGas ? 'primary' : 'secondary'} id='button' onClick={() => { this.turnOn()} }> Harvest Gasoline? </Button>}
+        { this.state.running ? <div/> : <Button size="lg" style={enterStyle} variant={this.hasKey() && !this.state.hasGas ? 'primary' : 'secondary'} id='button' onClick={() => { this.turnOn()} }> Fill with Gasoline? </Button>}
       </div>
     );
   }

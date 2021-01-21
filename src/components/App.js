@@ -14,6 +14,7 @@ import Coal from './Coal';
 import TechLock from './TechLock';
 import Car from './Car';
 import GasCap from './GasCap';
+import GasTap from './GasTap';
 import Dashboard from './Dashboard';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -82,6 +83,10 @@ class App extends Component {
               path="**/:puzzleId/gascap"
               render={(props) => (
               <GasCap {...props} /> )}/>
+            <Route
+              path="**/:puzzleId/gastap"
+              render={(props) => (
+              <GasTap {...props} /> )}/>
             <Route
               path="**/:puzzleId/dashboard"
               render={(props) => (

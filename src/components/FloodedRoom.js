@@ -37,10 +37,10 @@ class FloodedRoom extends React.Component {
 
     const enterStyle = {
       position: 'absolute',
-      height: '220px',
-      width: '40px',
-      top: '290px',
-      left: '605px'};
+      height: '100px',
+      width: '100px',
+      top: '490px',
+      left: '705px'};
 
     return (
       <div style={bookshelfStyle}>
