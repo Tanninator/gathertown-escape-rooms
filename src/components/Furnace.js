@@ -5,8 +5,6 @@ import 'firebase/firestore';
 import fireOn from '../images/furnace/gaslamp.mp3';
 import smelt from '../images/furnace/litfuse.mp3';
 import offFurnace from '../images/furnace/warm-furnace.png';
-
-import offFurnace from '../images/furnace/warm-furnace.png';
 import onFurnace from '../images/furnace/hot-furnace.png';
 import key from '../images/key/key.jpeg';
 import db from '../firebase.js';
