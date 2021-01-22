@@ -53,7 +53,7 @@ class Door extends React.Component {
       let mapData = result.data;
       let buf = Uint8Array.from(Buffer.from(mapData.collisions, "base64"));
       buf[this.state.y * mapData.dimensions[0] + this.state.x] = 0x00;
-      if (this.state.keyName === 'Basement Key') {
+      if (this.state.keyName === 'Bathroom Key') {
         buf[41 * mapData.dimensions[0] + 24] = 0x00;
         buf[42 * mapData.dimensions[0] + 24] = 0x00;
         buf[43 * mapData.dimensions[0] + 24] = 0x00;
