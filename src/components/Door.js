@@ -1,7 +1,8 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import lockedDoor from '../images/door/lockedDoor.jpg';
-import openDoor from '../images/door/openDoor.jpg';
+import lockSound from '../images/door/locksound.mp3';
+
 import db from '../firebase.js';
 import { config } from '../config.js';
 import axios from 'axios';
@@ -21,16 +22,13 @@ class Door extends React.Component {
     db.collection(this.state.puzzleId).doc("inventory").get().then((doc) => { this.setState({inventory: doc.data().items}) })
   }
 
-  setDisplayRoute() {
-    if (this.state.open) {
-      return openDoor
-    } else {
-      return lockedDoor
-    }
-  }
-
   hasKey() {
     return this.state.inventory.includes(this.state.keyName)
+  }
+
+  playAudio() {
+    const audioEl = document.getElementsByClassName("audio-element")[0]
+    audioEl.play()
   }
 
   open() {
@@ -38,6 +36,8 @@ class Door extends React.Component {
       db.collection(this.state.puzzleId).doc(this.props.match.params.doorId).set({open: true}, {merge: true})
       this.setState({open: true})
       this.removeImpassableTile()
+      this.playAudio()
+      alert('Door opened!')
     }
   }
 
@@ -89,8 +89,11 @@ class Door extends React.Component {
 
     return (
       <div style={bookshelfStyle}>
-        <img src={this.setDisplayRoute()} align="center" className="door center" alt="door" />
-        { this.state.open ? <div /> : <Button size="lg" style={enterStyle} variant={this.hasKey() ? 'primary' : 'secondary'} id='button' onClick={() => { this.open()} }> { this.buttonText() } </Button>}
+        <img src={lockedDoor} align="center" className="door center" alt="door" />
+        <audio className="audio-element">
+          <source src={lockSound}></source>
+        </audio>
+        <Button size="lg" style={enterStyle} variant={this.hasKey() ? 'primary' : 'secondary'} id='button' onClick={() => { this.open()} }> { this.buttonText() } </Button>
       </div>
     );
   }

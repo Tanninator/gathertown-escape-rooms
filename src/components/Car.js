@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import car from '../images/car/car.png';
-import carMsg from '../images/car/car-msg.jpg';
+import carStart from '../images/car/car-start.mp3';
 import db from '../firebase.js';
 import { config } from '../config.js';
 import axios from 'axios';
@@ -21,6 +21,11 @@ class Car extends React.Component {
     db.collection(this.state.puzzleId).doc("inventory").get().then((doc) => { this.setState({inventory: doc.data().items}) })
   }
 
+  playAudio() {
+    const audioEl = document.getElementsByClassName("audio-element")[0]
+    audioEl.play()
+  }
+
   hasKey() {
     return this.state.inventory.includes(this.state.keyName)
   }
@@ -30,6 +35,8 @@ class Car extends React.Component {
       db.collection(this.state.puzzleId).doc("car").set({running: true}, {merge: true})
       this.setState({running: true})
       this.openCarTiles()
+      this.playAudio()
+      alert('The car is running, hop in!')
     }
   }
 
@@ -74,10 +81,6 @@ class Car extends React.Component {
     return 'Start the engine!'
   }
 
-  carImage() {
-    return this.state.running? carMsg : car
-  }
-
   render() {
     const bookshelfStyle = {
       backgroundColor: 'black',
@@ -91,8 +94,11 @@ class Car extends React.Component {
 
     return (
       <div style={bookshelfStyle}>
-        <img src={this.carImage()} align="center" className="car center" alt="car" />
-        { this.state.running ? <div/> : <Button size="lg" style={enterStyle} variant={this.hasKey() && this.state.hasGas ? 'primary' : 'secondary'} id='button' onClick={() => { this.turnOn()} }> { this.buttonText() } </Button>}
+        <img src={car} align="center" className="car center" alt="car" />
+        <audio className="audio-element">
+          <source src={carStart}></source>
+        </audio>
+        <Button size="lg" style={enterStyle} variant={this.hasKey() && this.state.hasGas ? 'primary' : 'secondary'} id='button' onClick={() => { this.turnOn()} }> { this.buttonText() } </Button>
       </div>
     );
   }

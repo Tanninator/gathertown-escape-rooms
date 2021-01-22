@@ -26,6 +26,7 @@ class GasCap extends React.Component {
     if (this.hasKey()) {
       db.collection(this.state.puzzleId).doc("car").set({hasGas: true}, {merge: true})
       this.setState({hasGas: true})
+      alert('Filled up the car')
     } else {
       alert('You have nothing to fill it with!')
     }

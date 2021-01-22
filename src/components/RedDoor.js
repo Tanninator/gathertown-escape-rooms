@@ -39,6 +39,7 @@ class RedDoor extends React.Component {
       this.setState({open: true})
       this.removeImpassableTile()
       this.openLibrary()
+      alert('Door opened!')
     }
   }
 
@@ -111,8 +112,8 @@ class RedDoor extends React.Component {
 
     return (
       <div style={bookshelfStyle}>
-        <img src={this.setDisplayRoute()} align="center" className="door center" alt="door" />
-        { this.state.open ? <div /> : <Button size="lg" style={enterStyle} variant={this.hasKey() ? 'primary' : 'secondary'} id='button' onClick={() => { this.open()} }> { this.buttonText() } </Button>}
+        <img src={lockedDoor} align="center" className="door center" alt="door" />
+        <Button size="lg" style={enterStyle} variant={this.hasKey() ? 'primary' : 'secondary'} id='button' onClick={() => { this.open()} }> { this.buttonText() } </Button>
       </div>
     );
   }

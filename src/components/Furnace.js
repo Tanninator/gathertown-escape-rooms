@@ -2,6 +2,10 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
+import fireOn from '../images/furnace/gaslamp.mp3';
+import smelt from '../images/furnace/litfuse.mp3';
+import offFurnace from '../images/furnace/warm-furnace.png';
+
 import offFurnace from '../images/furnace/warm-furnace.png';
 import onFurnace from '../images/furnace/hot-furnace.png';
 import key from '../images/key/key.jpeg';
@@ -40,6 +44,9 @@ class Furnace extends React.Component {
     else {
       db.collection(this.state.puzzleId).doc("furnace").set({running: true}, {merge: true})
       this.setState({running: true})
+      const audioEl = document.getElementsById("igniteSound")[0]
+      audioEl.play()
+      alert('Started the furnace!')
     }
   }
 
@@ -51,6 +58,7 @@ class Furnace extends React.Component {
       db.collection(this.state.puzzleId).doc("furnace").set({hasCoal: true}, {merge: true})
       this.setState({hasCoal: true}) 
       db.collection(this.state.puzzleId).doc("inventory").update({ items: firebase.firestore.FieldValue.arrayRemove("Coal") })
+      alert('Added the coal')
     }
   }
 
@@ -61,6 +69,7 @@ class Furnace extends React.Component {
       db.collection(this.state.puzzleId).doc("inventory").update({ items: firebase.firestore.FieldValue.arrayRemove("Bronze Ingot") })
       db.collection(this.state.puzzleId).doc("furnace").set({hasIngot: true}, {merge: true})
       this.setState({hasIngot: true})
+      alert('Added the ingott')
     }
   }
 
@@ -71,6 +80,7 @@ class Furnace extends React.Component {
       db.collection(this.state.puzzleId).doc("inventory").update({ items: firebase.firestore.FieldValue.arrayRemove("Key Mould") })
       db.collection(this.state.puzzleId).doc("furnace").set({hasMould: true}, {merge: true})
       this.setState({hasMould: true})
+      alert('Added the mould')
     }
   }
 
@@ -81,6 +91,8 @@ class Furnace extends React.Component {
     else {
       db.collection(this.state.puzzleId).doc("furnace").set({done: true}, {merge: true})
       this.setState({done: true})
+      const audioEl = document.getElementsById("smeltSound")[0]
+      audioEl.play()
     }
   }
 
@@ -143,6 +155,12 @@ class Furnace extends React.Component {
 
     return (
       <div style={bookshelfStyle}>
+        <audio className="audio-element" id="igniteSound">
+          <source src={fireOn}></source>
+        </audio>
+        <audio className="audio-element" id="smeltSound">
+          <source src={smelt}></source>
+        </audio>
         { this.furnace() }
       </div>
     );

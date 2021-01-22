@@ -50,6 +50,7 @@ class Keypad extends React.Component {
       keypadRef.set({openFlag: true}, {merge: true})
     } else {
       this.setState({value: ''})
+      alert('Wrong number')
     }
   }
 
