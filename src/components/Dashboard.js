@@ -53,6 +53,7 @@ class Dashboard extends React.Component {
     buf[34 * mapData.dimensions[0] + 59] = 0x01;
     buf[35 * mapData.dimensions[0] + 58] = 0x01;
     buf[35 * mapData.dimensions[0] + 59] = 0x01;
+    buf[17 * mapData.dimensions[0] + 28] = 0x01;
     mapData.collisions = new Buffer(buf).toString("base64");
 
       return axios.post("https://cors-anywhere.herokuapp.com/https://gather.town/api/setMap", {
