@@ -42,7 +42,7 @@ class Furnace extends React.Component {
     else {
       db.collection(this.state.puzzleId).doc("furnace").set({running: true}, {merge: true})
       this.setState({running: true})
-      const audioEl = document.getElementsById("igniteSound")[0]
+      const audioEl = document.getElementById("igniteSound")
       audioEl.play()
       alert('Started the furnace!')
     }
@@ -64,7 +64,6 @@ class Furnace extends React.Component {
     if (this.state.hasIngot) { alert('You already added the bronze ingot!') }
     if (!this.hasIngot()) { alert('You need the bronze ingot!') }
     else {
-      db.collection(this.state.puzzleId).doc("inventory").update({ items: firebase.firestore.FieldValue.arrayRemove("Bronze Ingot") })
       db.collection(this.state.puzzleId).doc("furnace").set({hasIngot: true}, {merge: true})
       this.setState({hasIngot: true})
       alert('Added the ingott')
@@ -75,7 +74,6 @@ class Furnace extends React.Component {
     if (this.state.hasMould) { alert('You already added the key mould!') }
     if (!this.hasMould()) { alert('You need the key mould!') }
     else {
-      db.collection(this.state.puzzleId).doc("inventory").update({ items: firebase.firestore.FieldValue.arrayRemove("Key Mould") })
       db.collection(this.state.puzzleId).doc("furnace").set({hasMould: true}, {merge: true})
       this.setState({hasMould: true})
       alert('Added the mould')
@@ -89,7 +87,7 @@ class Furnace extends React.Component {
     else {
       db.collection(this.state.puzzleId).doc("furnace").set({done: true}, {merge: true})
       this.setState({done: true})
-      const audioEl = document.getElementsById("smeltSound")[0]
+      const audioEl = document.getElementById("smeltSound")
       audioEl.play()
     }
   }

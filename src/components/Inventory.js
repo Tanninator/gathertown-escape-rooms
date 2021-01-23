@@ -15,7 +15,9 @@ class Inventory extends React.Component {
 
   getData() {
     const puzzleId = this.props.location.pathname.slice(1).split('/')[0];
-    db.collection(puzzleId).doc("inventory").get().then((doc) => { this.setState({inventory: doc.data().items}) })
+    if (puzzleId !== '') {
+      db.collection(puzzleId).doc("inventory").get().then((doc) => { this.setState({inventory: doc.data().items}) })
+    }
   }
 
   formatInventory() {

@@ -3,8 +3,6 @@ import Button from 'react-bootstrap/Button';
 import lockedDoor from '../images/door/lockedDoor.jpg';
 import openDoor from '../images/door/openDoor.jpg';
 import db from '../firebase.js';
-import { config } from '../config.js';
-import axios from 'axios';
 
 class RedDoor extends React.Component {
   constructor(props) {
@@ -41,58 +39,6 @@ class RedDoor extends React.Component {
       this.openLibrary()
       alert('Door opened!')
     }
-  }
-
-  removeImpassableTile() {
-    axios.get('https://cors-anywhere.herokuapp.com/https://gather.town/api/getMap', {
-      params: {
-        apiKey: config.API_KEY,
-        spaceId: config.ROOM_ID,
-        mapId: config.MIRROR_ID,
-      }
-    })
-    .then(result => {
-      let mapData = result.data;
-      let buf = Uint8Array.from(Buffer.from(mapData.collisions, "base64"));
-      buf[this.state.y * mapData.dimensions[0] + this.state.x] = 0x00;
-      mapData.collisions = new Buffer(buf).toString("base64");
-
-      return axios.post("https://cors-anywhere.herokuapp.com/https://gather.town/api/setMap", {
-        apiKey: config.API_KEY,
-        spaceId: config.ROOM_ID,
-        mapId: config.MIRROR_ID,
-        mapContent: mapData
-      })
-    })
-    .catch(err => {
-      console.log(err);
-    })
-  }
-
-  openLibrary() {
-    axios.get('https://cors-anywhere.herokuapp.com/https://gather.town/api/getMap', {
-      params: {
-        apiKey: config.API_KEY,
-        spaceId: config.ROOM_ID,
-        mapId: config.MANSION_ID,
-      }
-    })
-    .then(result => {
-      let mapData = result.data;
-      let buf = Uint8Array.from(Buffer.from(mapData.collisions, "base64"));
-      buf[23 * mapData.dimensions[0] + 49] = 0x00;
-      mapData.collisions = new Buffer(buf).toString("base64");
-
-      return axios.post("https://cors-anywhere.herokuapp.com/https://gather.town/api/setMap", {
-        apiKey: config.API_KEY,
-        spaceId: config.ROOM_ID,
-        mapId: config.MANSION_ID,
-        mapContent: mapData
-      })
-    })
-    .catch(err => {
-      console.log(err);
-    })
   }
 
   buttonText() {

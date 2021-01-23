@@ -12,6 +12,8 @@ import Inventory from './Inventory';
 import Furnace from './Furnace';
 import Coal from './Coal';
 import TechLock from './TechLock';
+import MorseConsole from './MorseConsole';
+import MorseMonitor from './MorseMonitor';
 import Car from './Car';
 import GasCap from './GasCap';
 import GasTap from './GasTap';
@@ -51,6 +53,14 @@ class App extends Component {
               path="**/:puzzleId/furnace"
               render={(props) => (
               <Furnace {...props} /> )}/>
+            <Route
+              path="**/:puzzleId/morseconsole"
+              render={(props) => (
+              <MorseConsole {...props} /> )}/>
+            <Route
+              path="**/:puzzleId/morsemonitor"
+              render={(props) => (
+              <MorseMonitor {...props} /> )}/>
             <Route
               path="**/:puzzleId/techlock"
               render={(props) => (
