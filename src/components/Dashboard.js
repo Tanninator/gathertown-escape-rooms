@@ -23,6 +23,7 @@ class Dashboard extends React.Component {
     db.collection(puzzleId).doc("flooded").set({taken: false}, {merge: true})
     db.collection(puzzleId).doc("furnace").set({done: false, empty: false, hasCoal: false, hasIngot: false, hasMould: false, running: false}, {merge: true})
     db.collection(puzzleId).doc("techlock").set({open: false, takenIngot: false, takenMould: false}, {merge: true})
+    db.collection(puzzleId).doc("morseconsole").set({fullValue: "", connected: false}, {merge: true})
 
     db.collection(puzzleId).doc("inventory").set({items: []}, {merge: true})
     this.lockDoorsAndWindows()
