@@ -18,3 +18,10 @@ export const config3 = {
   MIRROR_ID: "mirror-mansion",
   API_KEY: "VB372bkMMk6gtTrX",
 }
+
+export const config4 = {
+  ROOM_ID: 'tQMORPmImD6VmQVN\\mysterymansion4',
+  MANSION_ID: "custom-entrance",
+  MIRROR_ID: "mirror-mansion",
+  API_KEY: "VB372bkMMk6gtTrX",
+}

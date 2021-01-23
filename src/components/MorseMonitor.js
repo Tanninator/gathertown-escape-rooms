@@ -3,7 +3,7 @@ import morse from '../images/morse-console/morse-view.png';
 import 'firebase/firestore';
 import db from '../firebase.js'
 import Button from 'react-bootstrap/Button';
-import { config1, config2, config3 } from '../config.js';
+import { config1, config2, config3, config4 } from '../config.js';
 import axios from 'axios';
 
 class MorseMonitor extends React.Component {
@@ -24,6 +24,8 @@ class MorseMonitor extends React.Component {
         return config2;
       case 'mansion3':
         return config3;
+      case 'mansion4':
+          return config4;
       default:
         return null
     }

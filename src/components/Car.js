@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import car from '../images/car/car.png';
 import carStart from '../images/car/car-start.mp3';
 import db from '../firebase.js';
-import { config1, config2, config3 } from '../config.js';
+import { config1, config2, config3, config4 } from '../config.js';
 import axios from 'axios';
 
 class Car extends React.Component {
@@ -24,6 +24,8 @@ class Car extends React.Component {
         return config2;
       case 'mansion3':
         return config3;
+      case 'mansion4':
+          return config4;
       default:
         return null
     }
