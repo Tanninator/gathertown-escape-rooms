@@ -6,7 +6,7 @@ import { config1, config2, config3 } from '../config.js';
 class Dashboard extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { x: 30, y: 29 }
+    this.state = { x: 30, y: 29, puzzleId: this.props.match.params.puzzleId }
   }
 
   getConfig(id){
