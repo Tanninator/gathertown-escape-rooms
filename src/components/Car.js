@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import car from '../images/car/car.png';
 import carStart from '../images/car/car-start.mp3';
 import db from '../firebase.js';
-import { config } from '../config.js';
+import { config1, config2, config3 } from '../config.js';
 import axios from 'axios';
 
 class Car extends React.Component {
@@ -14,6 +14,19 @@ class Car extends React.Component {
 
   componentDidMount() {
     this.getData()
+  }
+
+  getConfig(id){
+    switch(id) {
+      case 'puzzle':
+        return config1;
+      case 'mansion2':
+        return config2;
+      case 'mansion3':
+        return config3;
+      default:
+        return null
+    }
   }
 
   getData() {
@@ -41,6 +54,8 @@ class Car extends React.Component {
   }
 
   openCarTiles() {
+    var config = this.getConfig(this.state.puzzleId)
+
     axios.get('https://cors-anywhere.herokuapp.com/https://gather.town/api/getMap', {
       params: {
         apiKey: config.API_KEY,

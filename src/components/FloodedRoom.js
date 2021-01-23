@@ -27,6 +27,7 @@ class FloodedRoom extends React.Component {
     this.setState({taken: true})
     db.collection(this.state.puzzleId).doc("flooded").set({ taken: true })
     db.collection(this.state.puzzleId).doc("inventory").update({items: firebase.firestore.FieldValue.arrayUnion("Gas Can")})
+    alert('You got the Gas Can!')
   }
 
   render() {

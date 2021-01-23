@@ -1,12 +1,25 @@
 import React from 'react';
 import db from '../firebase.js'
 import axios from 'axios';
-import { config } from '../config.js';
+import { config1, config2, config3 } from '../config.js';
 
 class Dashboard extends React.Component {
   constructor(props) {
     super(props)
     this.state = { x: 30, y: 29 }
+  }
+
+  getConfig(id){
+    switch(id) {
+      case 'puzzle':
+        return config1;
+      case 'mansion2':
+        return config2;
+      case 'mansion3':
+        return config3;
+      default:
+        return null
+    }
   }
 
   reset() {
@@ -32,6 +45,8 @@ class Dashboard extends React.Component {
   }
 
   lockDoorsAndWindows() {
+    var config = this.getConfig(this.state.puzzleId)
+
     axios.get('https://cors-anywhere.herokuapp.com/https://gather.town/api/getMap', {
       params: {
         apiKey: config.API_KEY,
@@ -48,12 +63,9 @@ class Dashboard extends React.Component {
     buf[42 * mapData.dimensions[0] + 24] = 0x01;
     buf[43 * mapData.dimensions[0] + 24] = 0x01;
     buf[23 * mapData.dimensions[0] + 49] = 0x01;
-    buf[33 * mapData.dimensions[0] + 58] = 0x01;
-    buf[33 * mapData.dimensions[0] + 59] = 0x01;
-    buf[34 * mapData.dimensions[0] + 58] = 0x01;
-    buf[34 * mapData.dimensions[0] + 59] = 0x01;
-    buf[35 * mapData.dimensions[0] + 58] = 0x01;
-    buf[35 * mapData.dimensions[0] + 59] = 0x01;
+    buf[33 * mapData.dimensions[0] + 57] = 0x01;
+    buf[34 * mapData.dimensions[0] + 57] = 0x01;
+    buf[35 * mapData.dimensions[0] + 57] = 0x01;
     buf[17 * mapData.dimensions[0] + 28] = 0x01;
     mapData.collisions = new Buffer(buf).toString("base64");
 
@@ -70,6 +82,8 @@ class Dashboard extends React.Component {
   }
 
   lockRedDoor() {
+    var config = this.getConfig(this.state.puzzleId)
+
     axios.get('https://cors-anywhere.herokuapp.com/https://gather.town/api/getMap', {
       params: {
         apiKey: config.API_KEY,

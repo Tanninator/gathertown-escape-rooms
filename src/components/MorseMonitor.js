@@ -3,7 +3,7 @@ import morse from '../images/morse-console/morse-view.png';
 import 'firebase/firestore';
 import db from '../firebase.js'
 import Button from 'react-bootstrap/Button';
-import { config } from '../config.js';
+import { config1, config2, config3 } from '../config.js';
 import axios from 'axios';
 
 class MorseMonitor extends React.Component {
@@ -16,12 +16,27 @@ class MorseMonitor extends React.Component {
     this.getData()
   }
 
+  getConfig(id){
+    switch(id) {
+      case 'puzzle':
+        return config1;
+      case 'mansion2':
+        return config2;
+      case 'mansion3':
+        return config3;
+      default:
+        return null
+    }
+  }
+
   getData() {
     db.collection(this.state.puzzleId).doc("morseconsole").get().then((doc) => { this.setState({fullValue: doc.data().fullValue, passcode: doc.data().passcode}) })
     db.collection(this.state.puzzleId).doc("inventory").get().then((doc) => { this.setState({inventory: doc.data().items}) })
   }
 
   removeImpassableTile() {
+    var config = this.getConfig(this.state.puzzleId)
+
     axios.get('https://cors-anywhere.herokuapp.com/https://gather.town/api/getMap', {
       params: {
         apiKey: config.API_KEY,
@@ -48,6 +63,8 @@ class MorseMonitor extends React.Component {
   }
 
   openLibrary() {
+    var config = this.getConfig(this.state.puzzleId)
+
     axios.get('https://cors-anywhere.herokuapp.com/https://gather.town/api/getMap', {
       params: {
         apiKey: config.API_KEY,
