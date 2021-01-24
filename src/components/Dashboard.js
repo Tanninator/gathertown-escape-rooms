@@ -49,7 +49,7 @@ class Dashboard extends React.Component {
   lockDoorsAndWindows() {
     var config = this.getConfig(this.state.puzzleId)
 
-    axios.get('https://cors-anywhere.herokuapp.com/https://gather.town/api/getMap', {
+    axios.get('https://powerful-coast-83273.herokuapp.com/https://gather.town/api/getMap', {
       params: {
         apiKey: config.API_KEY,
         spaceId: config.ROOM_ID,
@@ -71,7 +71,7 @@ class Dashboard extends React.Component {
     buf[17 * mapData.dimensions[0] + 28] = 0x01;
     mapData.collisions = new Buffer(buf).toString("base64");
 
-      return axios.post("https://cors-anywhere.herokuapp.com/https://gather.town/api/setMap", {
+      return axios.post("https://powerful-coast-83273.herokuapp.com/https://gather.town/api/setMap", {
         apiKey: config.API_KEY,
         spaceId: config.ROOM_ID,
         mapId: config.MANSION_ID,
@@ -86,7 +86,7 @@ class Dashboard extends React.Component {
   lockRedDoor() {
     var config = this.getConfig(this.state.puzzleId)
 
-    axios.get('https://cors-anywhere.herokuapp.com/https://gather.town/api/getMap', {
+    axios.get('https://powerful-coast-83273.herokuapp.com/https://gather.town/api/getMap', {
       params: {
         apiKey: config.API_KEY,
         spaceId: config.ROOM_ID,
@@ -99,7 +99,7 @@ class Dashboard extends React.Component {
       buf[19 * mapData.dimensions[0] + 56] = 0x01;
       mapData.collisions = new Buffer(buf).toString("base64");
 
-      return axios.post("https://cors-anywhere.herokuapp.com/https://gather.town/api/setMap", {
+      return axios.post("https://powerful-coast-83273.herokuapp.com/https://gather.town/api/setMap", {
         apiKey: config.API_KEY,
         spaceId: config.ROOM_ID,
         mapId: config.MIRROR_ID,
