@@ -25,7 +25,15 @@ class Car extends React.Component {
       case 'mansion3':
         return config3;
       case 'mansion4':
-          return config4;
+        return config4;
+      case 'mansion5':
+        return config5;
+      case 'mansion6':
+        return config6;
+      case 'mansion7':
+        return config7;
+      case 'mansion8':
+        return config8;
       default:
         return null
     }
