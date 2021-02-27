@@ -3,7 +3,7 @@ import morse from '../images/morse-console/morse-view.png';
 import 'firebase/firestore';
 import db from '../firebase.js'
 import Button from 'react-bootstrap/Button';
-import { config1, config2, config3, config4 } from '../config.js';
+import { config1, config2, config3, config4, config5, config6, config7, config8 } from '../config.js';
 import axios from 'axios';
 
 class MorseMonitor extends React.Component {

@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import car from '../images/car/car.png';
 import carStart from '../images/car/car-start.mp3';
 import db from '../firebase.js';
-import { config1, config2, config3, config4 } from '../config.js';
+import { config1, config2, config3, config4, config5, config6, config7, config8 } from '../config.js';
 import axios from 'axios';
 
 class Car extends React.Component {
